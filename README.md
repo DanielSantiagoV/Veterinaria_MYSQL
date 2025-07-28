@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/MySQL-8.0+-blue?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/SQL-Standard-orange?style=for-the-badge&logo=sql&logoColor=white" alt="SQL">
   <img src="https://img.shields.io/badge/Database-Relational-green?style=for-the-badge&logo=database&logoColor=white" alt="Database">
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge" alt="Apache 2.0 License">
   <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" alt="Completed">
 </p>
 
@@ -377,7 +377,7 @@ Desarrollado como parte del taller de SQL para la veterinaria "Mi Mejor Amigo".
 - **GitHub**: [@DanielSantiagoV](https://github.com/DanielSantiagoV)
 - **Proyecto**: Sistema de Base de Datos Veterinaria
 - **Fecha**: 2025
-- **Licencia**: MIT
+- **Licencia**: Apache 2.0
 
 ---
 
