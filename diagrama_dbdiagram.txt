@@ -1,0 +1,169 @@
+-- =====================================================
+-- DIAGRAMA DBDIAGRAM PARA VETERINARIA "MI MEJOR AMIGO"
+-- =====================================================
+-- Diagrama en formato DBDiagram simplificado según requerimientos del taller
+
+/*
+DIAGRAMA DBDIAGRAM - VETERINARIA "MI MEJOR AMIGO"
+==================================================
+
+Este archivo contiene el diagrama en formato DBDiagram
+para las 5 entidades requeridas en el taller.
+
+FORMATO DBDIAGRAM:
+==================
+
+Table duenos {
+  id_dueno int [pk, increment]
+  cedula varchar(20) [unique, not null]
+  nombre_completo varchar(200) [not null]
+  telefono varchar(20)
+  direccion text
+}
+
+Table mascotas {
+  id_mascota int [pk, increment]
+  id_dueno int [ref: > duenos.id_dueno, not null]
+  nombre varchar(100) [not null]
+  especie varchar(50) [not null]
+  raza varchar(100)
+  edad int
+  sexo enum('macho', 'hembra')
+  vacunada enum('si', 'no') [default: 'no']
+}
+
+Table servicios {
+  id_servicio int [pk, increment]
+  nombre varchar(100) [not null]
+  descripcion text
+  precio_base decimal(10,2) [not null]
+}
+
+Table visitas {
+  id_visita int [pk, increment]
+  id_mascota int [ref: > mascotas.id_mascota, not null]
+  id_servicio int [ref: > servicios.id_servicio, not null]
+  fecha_visita date [not null]
+  observaciones text
+}
+
+Table tratamientos {
+  id_tratamiento int [pk, increment]
+  id_visita int [ref: > visitas.id_visita, not null]
+  nombre varchar(100) [not null]
+  observaciones text
+}
+
+RELACIONES:
+===========
+
+1. duenos (1) -------- (N) mascotas
+   - Un dueño puede tener una o varias mascotas
+   - Cada mascota pertenece a un solo dueño
+
+2. mascotas (N) -------- (N) servicios (a través de visitas)
+   - Una mascota puede recibir múltiples servicios
+   - Un servicio puede ser aplicado a múltiples mascotas
+   - Relación implementada a través de la entidad visitas
+
+3. visitas (1) -------- (N) tratamientos
+   - Una visita puede tener uno o más tratamientos
+   - Un tratamiento está vinculado a una visita
+
+CARDINALIDADES:
+===============
+
+- duenos (1) -------- (N) mascotas
+  * Un dueño puede tener múltiples mascotas
+  * Cada mascota pertenece a un solo dueño
+
+- mascotas (N) -------- (N) servicios
+  * Una mascota puede recibir múltiples servicios
+  * Un servicio puede ser aplicado a múltiples mascotas
+  * Relación implementada a través de visitas
+
+- visitas (1) -------- (N) tratamientos
+  * Una visita puede tener uno o más tratamientos
+  * Un tratamiento está vinculado a una visita
+
+RESTRICCIONES:
+==============
+
+1. INTEGRIDAD REFERENCIAL:
+   - id_dueno en mascotas debe existir en duenos
+   - id_mascota en visitas debe existir en mascotas
+   - id_servicio en visitas debe existir en servicios
+   - id_visita en tratamientos debe existir en visitas
+
+2. UNICIDAD:
+   - cedula en duenos debe ser única
+   - Todos los IDs primarios son únicos
+
+3. DOMINIOS:
+   - sexo: ENUM('macho', 'hembra')
+   - vacunada: ENUM('si', 'no')
+   - edad: INT >= 0
+   - precio_base: DECIMAL(10,2) >= 0
+
+DIAGRAMA VISUAL EN DBDIAGRAM:
+=============================
+
+duenos {
+  id_dueno int [pk, increment]
+  cedula varchar(20) [unique, not null]
+  nombre_completo varchar(200) [not null]
+  telefono varchar(20)
+  direccion text
+}
+
+mascotas {
+  id_mascota int [pk, increment]
+  id_dueno int [ref: > duenos.id_dueno, not null]
+  nombre varchar(100) [not null]
+  especie varchar(50) [not null]
+  raza varchar(100)
+  edad int
+  sexo enum('macho', 'hembra')
+  vacunada enum('si', 'no') [default: 'no']
+}
+
+servicios {
+  id_servicio int [pk, increment]
+  nombre varchar(100) [not null]
+  descripcion text
+  precio_base decimal(10,2) [not null]
+}
+
+visitas {
+  id_visita int [pk, increment]
+  id_mascota int [ref: > mascotas.id_mascota, not null]
+  id_servicio int [ref: > servicios.id_servicio, not null]
+  fecha_visita date [not null]
+  observaciones text
+}
+
+tratamientos {
+  id_tratamiento int [pk, increment]
+  id_visita int [ref: > visitas.id_visita, not null]
+  nombre varchar(100) [not null]
+  observaciones text
+}
+
+NOTAS IMPORTANTES:
+==================
+
+- Este diagrama cumple exactamente con los requerimientos del taller
+- Solo incluye las 5 entidades especificadas
+- Las relaciones están correctamente definidas
+- La cardinalidad está especificada
+- Se mantiene la integridad referencial
+- El formato es compatible con DBDiagram.io
+
+USO:
+====
+
+1. Copiar el código del diagrama visual
+2. Pegar en https://dbdiagram.io/
+3. El diagrama se generará automáticamente
+4. Se puede exportar como imagen o PDF
+*/ 
