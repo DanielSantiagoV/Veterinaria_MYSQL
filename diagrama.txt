@@ -1,0 +1,212 @@
+-- =====================================================
+-- DIAGRAMA EN FORMATO TEXTO PARA VETERINARIA "MI MEJOR AMIGO"
+-- =====================================================
+-- Diagrama simplificado en formato texto según requerimientos del taller
+
+/*
+DIAGRAMA ENTIDAD-RELACIÓN - VETERINARIA "MI MEJOR AMIGO"
+=========================================================
+
+ENTIDADES (5 entidades requeridas):
+===================================
+
+1. DUENOS
+   +------------------+
+   | id_dueno (PK)    |
+   | cedula (UNIQUE)  |
+   | nombre_completo  |
+   | telefono         |
+   | direccion        |
+   +------------------+
+
+2. MASCOTAS
+   +------------------+
+   | id_mascota (PK)  |
+   | id_dueno (FK)    |
+   | nombre           |
+   | especie          |
+   | raza             |
+   | edad             |
+   | sexo             |
+   | vacunada         |
+   +------------------+
+
+3. SERVICIOS
+   +------------------+
+   | id_servicio (PK) |
+   | nombre           |
+   | descripcion      |
+   | precio_base      |
+   +------------------+
+
+4. VISITAS
+   +------------------+
+   | id_visita (PK)   |
+   | id_mascota (FK)  |
+   | id_servicio (FK) |
+   | fecha_visita     |
+   | observaciones    |
+   +------------------+
+
+5. TRATAMIENTOS
+   +------------------+
+   | id_tratamiento   |
+   | id_visita (FK)   |
+   | nombre           |
+   | observaciones    |
+   +------------------+
+
+RELACIONES:
+===========
+
+DUENOS (1) -------- (N) MASCOTAS
+  |
+  |-- Un dueño puede tener una o varias mascotas
+  |-- Cada mascota pertenece a un solo dueño
+  |
+  +-- Relación: id_dueno en MASCOTAS -> id_dueno en DUENOS
+
+MASCOTAS (N) -------- (N) SERVICIOS (a través de VISITAS)
+  |
+  |-- Una mascota puede recibir múltiples servicios
+  |-- Un servicio puede ser aplicado a múltiples mascotas
+  |
+  +-- Relación implementada a través de la entidad VISITAS
+
+VISITAS (1) -------- (N) TRATAMIENTOS
+  |
+  |-- Una visita puede tener uno o más tratamientos
+  |-- Un tratamiento está vinculado a una visita
+  |
+  +-- Relación: id_visita en TRATAMIENTOS -> id_visita en VISITAS
+
+DIAGRAMA VISUAL:
+================
+
+DUENOS                    MASCOTAS
++-------------+          +-------------+
+| id_dueno    |<---------| id_mascota  |
+| cedula      |          | id_dueno    |
+| nombre      |          | nombre      |
+| telefono    |          | especie     |
+| direccion   |          | raza        |
++-------------+          | edad        |
+                         | sexo        |
+                         | vacunada    |
+                         +-------------+
+                                |
+                                |
+                                v
+                         +-------------+
+                         | id_visita   |
+                         | id_mascota  |
+                         | id_servicio |
+                         | fecha_visita|
+                         | observaciones|
+                         +-------------+
+                                |
+                                |
+                                v
+                         +-------------+
+                         | id_tratamiento|
+                         | id_visita   |
+                         | nombre      |
+                         | observaciones|
+                         +-------------+
+
+SERVICIOS
++-------------+
+| id_servicio |
+| nombre      |
+| descripcion |
+| precio_base |
++-------------+
+      ^
+      |
+      |
+      +------------------+
+
+CARDINALIDADES:
+===============
+
+- DUENOS (1) -------- (N) MASCOTAS
+  * Un dueño puede tener múltiples mascotas
+  * Cada mascota pertenece a un solo dueño
+
+- MASCOTAS (N) -------- (N) SERVICIOS
+  * Una mascota puede recibir múltiples servicios
+  * Un servicio puede ser aplicado a múltiples mascotas
+  * Relación implementada a través de VISITAS
+
+- VISITAS (1) -------- (N) TRATAMIENTOS
+  * Una visita puede tener uno o más tratamientos
+  * Un tratamiento está vinculado a una visita
+
+RESTRICCIONES:
+==============
+
+1. INTEGRIDAD REFERENCIAL:
+   - id_dueno en MASCOTAS debe existir en DUENOS
+   - id_mascota en VISITAS debe existir en MASCOTAS
+   - id_servicio en VISITAS debe existir en SERVICIOS
+   - id_visita en TRATAMIENTOS debe existir en VISITAS
+
+2. UNICIDAD:
+   - cedula en DUENOS debe ser única
+   - Todos los IDs primarios son únicos
+
+3. DOMINIOS:
+   - sexo: ENUM('macho', 'hembra')
+   - vacunada: ENUM('si', 'no')
+   - edad: INT >= 0
+   - precio_base: DECIMAL(10,2) >= 0
+
+ATRIBUTOS CLAVE:
+================
+
+DUENOS:
+- id_dueno: Llave primaria, auto-incremento
+- cedula: Llave única, identificación del dueño
+- nombre_completo: Nombre completo del dueño
+- telefono: Número de contacto
+- direccion: Dirección del dueño
+
+MASCOTAS:
+- id_mascota: Llave primaria, auto-incremento
+- id_dueno: Llave foránea a DUENOS
+- nombre: Nombre de la mascota
+- especie: Tipo de animal (perro, gato, etc.)
+- raza: Raza específica
+- edad: Edad en años
+- sexo: Macho o hembra
+- vacunada: Si está vacunada o no
+
+SERVICIOS:
+- id_servicio: Llave primaria, auto-incremento
+- nombre: Nombre del servicio
+- descripcion: Descripción del servicio
+- precio_base: Precio del servicio
+
+VISITAS:
+- id_visita: Llave primaria, auto-incremento
+- id_mascota: Llave foránea a MASCOTAS
+- id_servicio: Llave foránea a SERVICIOS
+- fecha_visita: Fecha de la visita
+- observaciones: Observaciones de la visita
+
+TRATAMIENTOS:
+- id_tratamiento: Llave primaria, auto-incremento
+- id_visita: Llave foránea a VISITAS
+- nombre: Nombre del tratamiento
+- observaciones: Observaciones del tratamiento
+
+NOTAS IMPORTANTES:
+==================
+
+- Este diagrama cumple exactamente con los requerimientos del taller
+- Solo incluye las 5 entidades especificadas
+- Las relaciones son claras y bien definidas
+- La cardinalidad está correctamente especificada
+- Se mantiene la integridad referencial
+- El diagrama es fácil de entender y implementar
+*/ 
